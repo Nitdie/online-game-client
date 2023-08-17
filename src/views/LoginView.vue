@@ -1,6 +1,18 @@
 <script setup lang="ts">
-import {Back} from "@element-plus/icons-vue";
 import LoginFormComponent from "@/components/LoginFormComponent.vue";
+import {onBeforeMount} from "vue";
+import {mainStore} from "@/stores"; const store=mainStore()
+import {useRouter} from "vue-router";  const router = useRouter()
+
+onBeforeMount(()=>{
+  console.log('In Mount')
+  if(store.getCurrentUser!=''){
+    console.log(2)
+    router.push('/')
+  } //用户已经登陆
+
+})
+console.log('In Set')
 
 </script>
 

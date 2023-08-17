@@ -10,9 +10,6 @@ const store = mainStore()
 const socket = io("http://localhost:8888")
 provide("socket",socket)
 
-store.setCurrentUser('1')
-console.log(store.currentUser)
-
 const userLogged = computed(()=> store.getCurrentUser != '')
 
 if(!userLogged.value)  //未登入则重定向到登陆界面
@@ -28,11 +25,10 @@ onBeforeMount(()=>{
   <header>
     <NavComponent v-if="userLogged"></NavComponent>
   </header>
-  <RouterView v-if="!userLogged"></RouterView>
+  <RouterView></RouterView>
 </template>
 
 <style scoped lang="sass">
-template
-  background-color: #af4646
+
 
 </style>

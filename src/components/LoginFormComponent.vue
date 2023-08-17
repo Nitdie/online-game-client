@@ -3,6 +3,7 @@ import {User,Lock} from "@element-plus/icons-vue";
 import {inject, ref} from "vue";
 import AuthenticationService from "@/services/AuthenticationService";
 import {mainStore} from "@/stores"; const store = mainStore();
+import {useRouter} from "vue-router"; const router=useRouter();
 
 const formData = {
   username:'',
@@ -25,6 +26,7 @@ async function login(){
     localStorage.setItem("localUser",form.value.username)
     store.setCurrentUser(form.value.username)
     isInputWrong.value = false
+    router.push('./')
   } catch (error){
     isInputWrong.value = true
   }

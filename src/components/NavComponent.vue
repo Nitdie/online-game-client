@@ -6,9 +6,9 @@ import { ref } from 'vue'
 const currentUser = ref(store.getCurrentUser)
 
 const activeIndex = ref('0')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+// const handleSelect = (key: string, keyPath: string[]) => {
+//   console.log(key, keyPath)
+// }
 
 async function logout(){
   store.setCurrentUser('')
@@ -19,11 +19,9 @@ async function logout(){
 
 <template>
   <el-menu
-      :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       :ellipsis="false"
-      @select="handleSelect"
   >
     <el-menu-item index="0">主页</el-menu-item>
     <div class="flex-grow" />
