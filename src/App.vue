@@ -1,85 +1,38 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import NavComponent from "@/components/NavComponent.vue";
+import {mainStore} from '@/stores'
+import {computed, onBeforeMount, onMounted, provide, ref} from "vue";
+import io from "socket.io-client"
+import {useRouter} from "vue-router";  const router = useRouter()
+
+const store = mainStore()
+const socket = io("http://localhost:8888")
+provide("socket",socket)
+
+store.setCurrentUser('1')
+console.log(store.currentUser)
+
+const userLogged = computed(()=> store.getCurrentUser != '')
+
+if(!userLogged.value)  //未登入则重定向到登陆界面
+  router.push('/login')
+
+onBeforeMount(()=>{
+  store.setCurrentUser(localStorage.getItem('localUser'))
+})
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <NavComponent v-if="userLogged"></NavComponent>
   </header>
-
-  <RouterView />
+  <RouterView v-if="!userLogged"></RouterView>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<style scoped lang="sass">
+template
+  background-color: #af4646
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
