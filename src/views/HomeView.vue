@@ -20,7 +20,7 @@ import CaroselItemComponent from "@/components/CaroselItemComponent.vue";
 
 .main-container
   background-color: $BACKCOLOR
-  height: 88vh
+  height: $MAIN-HEIGHT
 
 .footer-container
   display: flex
