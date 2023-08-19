@@ -1,30 +1,33 @@
 <script setup lang="ts">
-import LoginFormComponent from "@/components/LoginFormComponent.vue";
-import {onBeforeMount} from "vue";
-import {mainStore} from "@/stores"; const store=mainStore()
-import {useRouter} from "vue-router";  const router = useRouter()
+import LoginFormComponent from '@/components/LoginFormComponent.vue'
+import { onBeforeMount } from 'vue'
+import { mainStore } from '@/stores'
+const store = mainStore()
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
-onBeforeMount(()=>{
-  // console.log('In Mount')
-  if(store.getCurrentUser!=''){
-    router.push('/')
-  } //用户已经登陆
-
+onBeforeMount(() => {
+    // console.log('In Mount')
+    if (store.getCurrentUser != '') {
+        router.push('/')
+    } //用户已经登陆
 })
-
 </script>
 
 <template>
-  <el-container class="all-container">
-    <el-main class="main-container">
-      <login-form-component></login-form-component>
-    </el-main>
-    <el-footer class="footer-container">
-      <div style="color: rgba(0,05,05,0.2);margin-bottom: 10px">Created By Nitdie</div>
-      <a href="https://beian.miit.gov.cn/" style="color: rgba(0,05,05,0.2);text-decoration:none">赣ICP备2023004095号</a>
-    </el-footer>
-  </el-container>
-
+    <el-container class="all-container">
+        <el-main class="main-container">
+            <login-form-component></login-form-component>
+        </el-main>
+        <el-footer class="footer-container">
+            <div style="color: rgba(0, 05, 05, 0.2); margin-bottom: 10px">Created By Nitdie</div>
+            <a
+                href="https://beian.miit.gov.cn/"
+                style="color: rgba(0, 05, 05, 0.2); text-decoration: none"
+                >赣ICP备2023004095号</a
+            >
+        </el-footer>
+    </el-container>
 </template>
 
 <style scoped lang="sass">

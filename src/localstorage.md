@@ -1,1 +1,1 @@
-localUser : The Logged User's Name 
+localUser : The Logged User's Name

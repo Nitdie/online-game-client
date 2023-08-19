@@ -1,8 +1,8 @@
 import Api from '@/services/Api'
 
-interface LoginData{
-    username:string,
-    password:string
+interface LoginData {
+    username: string
+    password: string
 }
 export default {
     register(credentials: LoginData) {
@@ -14,7 +14,7 @@ export default {
         return res
     }
 }
- // AuthenticationService.register({
- //     account:'account',
- //     password:'word',
- // })
+// AuthenticationService.register({
+//     account:'account',
+//     password:'word',
+// })
