@@ -56,7 +56,7 @@ export class Bullet {
     }
     playSound(){
         this.sound.currentTime = 0;
-        this.sound.volume = 0.3
+        this.sound.volume = 0.1
         this.sound.play()
     }
 

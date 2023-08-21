@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import GameLayoutComponent from '@/components/GameLayoutComponent.vue'
 import { gameSetUp } from '@/games/game1'
-import {inject, onMounted, ref,onBeforeUnmount} from 'vue'
+import {inject, onMounted, ref} from 'vue'
+import {mainStore} from "@/stores"; const store = mainStore()
+
 const socket:any = inject("socket")
-
+localStorage.setItem('localUser',socket.id)
 onMounted(() => {
-    socket.emit('player_enter')
+    socket.emit('player_enter_one',store.getCurrentUser)
+    socket.on("send_room_id",(roomId:any)=>{
+      store.setCurrentRoomId(roomId)
+    })
     const canvas = document.getElementById('GameCanvas') as HTMLCanvasElement
-    gameSetUp(canvas)
-})
-
-onBeforeUnmount(()=>{
-    socket.emit('player_quit')
+    gameSetUp(canvas,socket)
 })
 
 
@@ -20,13 +21,6 @@ const showGame = ref(false)
 </script>
 
 <template>
-<!--    <el-container class="all-container" v-if="!showGame">-->
-<!--      <el-main class="enter-container">-->
-<!--        <div class="canvas-hide">-->
-<!--          开始-->
-<!--        </div>-->
-<!--      </el-main>-->
-<!--    </el-container>-->
     <GameLayoutComponent> </GameLayoutComponent>
     <!--  可以在此处加载图片但不显示，节省时间 -->
     <img id="spaceShip" class='gameImage' src="@/games/game1/assets/imgs/spaceShip.png" />

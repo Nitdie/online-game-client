@@ -14,7 +14,7 @@ const activeIndex = ref('0')
 
 async function logout() {
     store.setCurrentUser('')
-    localStorage.setItem('localUser', '')
+    // localStorage.setItem('localUser', '')
     await router.push('/login')
 }
 </script>

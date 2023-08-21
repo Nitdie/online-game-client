@@ -28,7 +28,7 @@ async function login() {
         localStorage.setItem('localUser', form.value.username)
         store.setCurrentUser(form.value.username)
         isInputWrong.value = false
-        router.push('./')
+        await router.push('./')
     } catch (error) {
         isInputWrong.value = true
     }
