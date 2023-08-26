@@ -44,7 +44,7 @@ export class InputHandler {
             if (event.button === 0) this.mouseDown = false
         })
 
-        canvas.addEventListener('click',(event)=>{
+        canvas.addEventListener('click', (event) => {
             event.preventDefault()
         })
     }
