@@ -40,7 +40,6 @@ export function gameSetUp(canvas: HTMLCanvasElement, socket: any) {
             const shipType = store.game1type
             this.currentPlayer = new Player(this, socket.id,shipType)
             this.socket = socket
-
             const inputInitialize = () =>{
                 this.input.mouseX = this.currentPlayer.x
                 this.input.mouseY = this.currentPlayer.y
@@ -63,9 +62,8 @@ export function gameSetUp(canvas: HTMLCanvasElement, socket: any) {
                 }
 
             })
-            socket.on('taken_damage',(damage)=>{
+            socket.on('taken_damage',(damage:number)=>{
                 this.player_health -= damage
-                console.log(this.player_health)
             })
 
         }
@@ -99,6 +97,7 @@ export function gameSetUp(canvas: HTMLCanvasElement, socket: any) {
             uploadPlayer()
         }
         update() {
+
             this.socket.emit('request_data') //已用socket.on创建事件监听器
 
             const updateSelfPlayer = () => {
@@ -168,6 +167,7 @@ export function gameSetUp(canvas: HTMLCanvasElement, socket: any) {
             const drawInitialize = () => {
                 this.ctx.clearRect(0, 0, this.width, this.height)
                 this.ctx.save()
+
                 this.ctx.translate(-this.camera.x, -this.camera.y)
             }
             drawInitialize()
@@ -190,7 +190,7 @@ export function gameSetUp(canvas: HTMLCanvasElement, socket: any) {
             const drawOtherBullets = () => {
                 if (this.roomData) {
                     for (const bullet of this.otherBullets) {
-                        if (bullet.shooter != store.getCurrentUser) {
+                        if (bullet.shooter != socket.id) {
                             Bullet.drawBullet(
                                 this.ctx,
                                 bullet.type,
@@ -234,7 +234,7 @@ export function gameSetUp(canvas: HTMLCanvasElement, socket: any) {
                         else
                             state = 'normal'
 
-                        if (player.name != store.getCurrentUser) {
+                        if (player.name != socket.id) {
                             Player.drawPlayer(
                                 this.ctx,
                                 player.type,

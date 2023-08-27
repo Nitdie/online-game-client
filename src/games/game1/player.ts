@@ -21,7 +21,7 @@ export class Player {
     public state = 'normal'
     private lastShootTime: number // 上次射击的时间戳
     private shootInterval: number // 射击间隔，以毫秒为单位
-    private moveSpeed;
+    private moveSpeed:number = SPEED;
     private hurtTime = 0
     constructor(game: any, name: string, type: string) {
         this.game = game

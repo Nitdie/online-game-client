@@ -8,8 +8,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const store = mainStore()
-const socket = io('http://localhost:8888')
-provide('socket', socket)
+// const socket = io('http://localhost:8888')
+// provide('socket', socket)
 
 store.setCurrentUser(localStorage.getItem('localUser')!)
 const userLogged = computed(() => store.getCurrentUser != '')

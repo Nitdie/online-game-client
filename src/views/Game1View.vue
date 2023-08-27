@@ -1,27 +1,43 @@
 <script setup lang="ts">
 import GameLayoutComponent from '@/components/GameLayoutComponent.vue'
+import Game1ShipSelectComponent from "@/components/game1/Game1ShipSelectComponent.vue";
 import { gameSetUp } from '@/games/game1'
 import { inject, onMounted, ref } from 'vue'
 import { mainStore } from '@/stores'
+import io from "socket.io-client";
 const store = mainStore()
 
-const socket: any = inject('socket')
-store.setCurrentUser(socket.id)
-localStorage.setItem('localUser', socket.id)
+// const socket: any = inject('socket')
+// store.setCurrentUser(socket.id)
+// localStorage.setItem('localUser', socket.id)
+const chose = ref(false)
 onMounted(() => {
-    socket.emit('player_enter_one', store.getCurrentUser)
-    socket.on('send_room_id', (roomId: any) => {
-        store.setCurrentRoomId(roomId)
+
+})
+
+function handleSelectEvent(){
+  chose.value = true
+  const socket = io('http://localhost:8888')
+  setTimeout(()=>{
+
+
+    socket.emit('player_enter_one', socket.id)
+    socket.on('send_room_info', (data: any) => {
+      store.setCurrentRoomId(data.roomId)
     })
     const canvas = document.getElementById('GameCanvas') as HTMLCanvasElement
     gameSetUp(canvas, socket)
-})
+  },100)
+}
 
-const showGame = ref(false)
 </script>
 
 <template>
-    <GameLayoutComponent> </GameLayoutComponent>
+  <div>
+    <Game1ShipSelectComponent @select-event="handleSelectEvent" v-if="!chose">CHOOSE</Game1ShipSelectComponent>
+    <GameLayoutComponent v-if="chose"> </GameLayoutComponent>
+  </div>
+
     <!--  可以在此处加载图片但不显示，节省时间 -->
     <img id="spaceShip1" class="gameImage" src="@/games/game1/assets/imgs/spaceShip.png" />
     <img id="spaceShip2" class="gameImage" src="@/games/game1/assets/imgs/spaceShips2.png" />
@@ -70,30 +86,6 @@ const showGame = ref(false)
 </template>
 
 <style scoped lang="sass">
-//@import '@/assets/styles/index'
-//
-//.all-container
-//  background-color: #f1f1f1
-//  height: $MAIN-HEIGHT
-//
-//  .enter-container
-//    display: flex
-//    justify-content: center
-//    align-items: center
-//    height: 80vh
-//    width: 80vw
-//    margin: 30px
-//
-//    .canvas-hide
-//      background-color: rgba(255, 255, 255, 0.5)
-//      display: flex
-//      width: 800px
-//      height: 500px
-//      align-self: center
-//      justify-self: center
-//      text-align: center
-//      border: 2px solid #d9d9da
-
 .gameImage, .gameAudio
   display: none
 </style>

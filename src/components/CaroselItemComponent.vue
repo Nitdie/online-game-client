@@ -46,5 +46,5 @@ function enterGame() {
 
 <style scoped lang="sass">
 img
-  height: 500px
+  height: 75vh
 </style>

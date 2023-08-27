@@ -42,7 +42,7 @@ async function login() {
         <el-form label-width="70px">
             <div class="input_hint" v-show="isInputWrong">账号或密码错误</div>
             <el-form-item label="用户名">
-                <el-input prefix-icon="User" v-model="form.username" class="text-input" />
+                <el-input prefix-icon="User" v-model="form.username" class="text-input" style="width:100%"/>
             </el-form-item>
             <el-form-item label="密码">
                 <el-input
@@ -51,6 +51,7 @@ async function login() {
                     prefix-icon="Lock"
                     v-model="form.password"
                     class="text-input"
+                    style="width:100%"
                 />
             </el-form-item>
             <el-button class="login_button" @click="login">登陆</el-button>

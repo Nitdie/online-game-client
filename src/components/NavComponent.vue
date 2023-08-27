@@ -21,9 +21,8 @@ async function logout() {
 
 <template>
     <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
-        <el-menu-item index="0">主页</el-menu-item>
+        <el-menu-item index="0"><router-link to="/">主页</router-link></el-menu-item>
         <div class="flex-grow" />
-        <el-menu-item index="1">Processing Center</el-menu-item>
         <el-sub-menu index="2" class="sub">
             <template #title>{{ store.getCurrentUser }}</template>
             <el-menu-item index="2-1">个人资料</el-menu-item>
